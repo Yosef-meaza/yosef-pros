@@ -11,13 +11,13 @@ var gDM = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 var eDM = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 5 ];
 class eDate {
    constructor(yy, mm, dd, h, m, s, ms) {
-      this.getFullYear = (yy)?yy: eFullYear();
-      this.getMonth = (mm)?mm: eMonth();
-      this.getDate = (dd)?dd: date();
-      this.getHours = (h)?h: eHours();
-      this.getMinutes = (m)?m: gDate.getMinutes();
-      this.getSeconds = (s)?s: gDate.getSeconds();
-      this.getMiliSeconds = (ms)?ms: gDate.getMilliseconds();
+      this.getMiliSeconds = (ms) ? ms : gDate.getMilliseconds;
+      this.getSeconds = (s) ? s : gDate.getSeconds;
+      this.getMinutes = (m) ? m : gDate.getMinutes;
+      this.getHours = (h) ? h : eHours;
+      this.getDate = (dd) ? dd : date;
+      this.getMonth = (mm) ? mm : eMonth;
+      this.getFullYear = (yy) ? yy : eFullYear;
    }
    setFullYear(yy) { this.getFullYear = yy }
    setMonth(mm) { this.getMonth = mm }
@@ -26,6 +26,9 @@ class eDate {
    setMinutes(m) { this.getMinutes = m }
    setSeconds(s) { this.getSeconds = s }
    setMiliSeconds(ms) { this.getMiliSeconds = ms }
+}
+function eHours(params) {
+   
 }
 function date(d) {
    var x = getDate();
