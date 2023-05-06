@@ -13,11 +13,11 @@ con.connect(function (err) {
          if (err) return console.error(err);
          console.log("result", result);
       });
-      con.query("SELECT * FROM COSTOMERS", function (err, result) {
+      con.query("CREATE DATABASE mydb", function (err) {
          if (err) {
             console.log(err);
          } else {
-            console.log("result: " + result);
+            console.log('Database created');
          }
       });
    }
