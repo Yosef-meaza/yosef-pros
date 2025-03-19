@@ -1,40 +1,34 @@
-const gDate = new Date();
-let { getMonth } = gDate;
-const { getDate } = gDate;
+function gregorianToEthiopian(gregorianDate) {
+   const ethiopianEpoch = 1723856; // Julian day of Ethiopian calendar epoch
+   const gregorianEpoch = 1721425.5; // Julian day of Gregorian calendar epoch
 
-/*gregorian days of months (starting from january)*/
+   // Convert Gregorian date to Julian day
+   const year = gregorianDate.getFullYear();
+   const month = gregorianDate.getMonth() + 1; // JavaScript months are 0-based
+   const day = gregorianDate.getDate();
 
-var gDM = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+   const a = Math.floor((14 - month) / 12);
+   const y = year + 4800 - a;
+   const m = month + 12 * a - 3;
 
-/*ethiopian days of months (starting from january)*/
+   const julianDay = day + Math.floor((153 * m + 2) / 5) + 365 * y + Math.floor(y / 4) - Math.floor(y / 100) + Math.floor(y / 400) - 32045;
 
-var eDM = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 5 ];
-class eDate {
-   constructor(yy, mm, dd, h, m, s, ms) {
-      this.getMiliSeconds = (ms) ? ms : gDate.getMilliseconds;
-      this.getSeconds = (s) ? s : gDate.getSeconds;
-      this.getMinutes = (m) ? m : gDate.getMinutes;
-      this.getHours = (h) ? h : eHours;
-      this.getDate = (dd) ? dd : date;
-      this.getMonth = (mm) ? mm : eMonth;
-      this.getFullYear = (yy) ? yy : eFullYear;
-   }
-   setFullYear(yy) { this.getFullYear = yy }
-   setMonth(mm) { this.getMonth = mm }
-   setDate(dd) { this.getDate = dd }
-   setHours(h) { this.getHours = h }
-   setMinutes(m) { this.getMinutes = m }
-   setSeconds(s) { this.getSeconds = s }
-   setMiliSeconds(ms) { this.getMiliSeconds = ms }
+   // Convert Julian day to Ethiopian date
+   const ethiopianJulianDay = julianDay - gregorianEpoch + ethiopianEpoch;
+   const ethiopianYear = Math.floor((ethiopianJulianDay - 1) / 365) - 1;
+   const ethiopianDayOfYear = (ethiopianJulianDay - 1) % 365 + 1;
+
+   const ethiopianMonth = Math.floor((ethiopianDayOfYear - 1) / 30) + 1;
+   const ethiopianDay = (ethiopianDayOfYear - 1) % 30 + 1;
+
+   return {
+      year: ethiopianYear,
+      month: ethiopianMonth,
+      day: ethiopianDay
+   };
 }
-function eHours(params) {
-   
-}
-function date(d) {
-   var x = getDate();
-   for (let mon = 0; mon < thisMon; mon++) {
-      x += gDM[mon];
-      console.log(x, mon);
-   }
-   return (x + 30 - 8) % 30;
-}
+
+// Example usage:
+const gregorianDate = new Date(2023, 9, 5); // October 5, 2023
+const ethiopianDate = gregorianToEthiopian(gregorianDate);
+console.log(`Ethiopian Date: ${ethiopianDate.year}-${ethiopianDate.month}-${ethiopianDate.day}`);
